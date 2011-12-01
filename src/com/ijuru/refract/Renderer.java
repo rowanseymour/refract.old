@@ -22,7 +22,7 @@ package com.ijuru.refract;
 /**
  * Class for generating Mandelbrot or Julia sets
  */
-public class FractalGenerator
+public class Renderer
 {	
 	/**
 	 * Iteration parameter defaults
@@ -288,6 +288,11 @@ public class FractalGenerator
 		}
 	}
 	
+	/**
+	 * Calculates a histogram of iteration values that can be used for 
+	 * auto-scaling the palette
+	 * @return the histogram
+	 */
 	public int[] calcIterHistogram()
 	{
 		int[] histo = new int[maxIters + 1];
@@ -296,7 +301,7 @@ public class FractalGenerator
 			++histo[iters[i]];
 			
 		return histo; 
-	}		
+	}	
 	
 	/**
 	 * Gets the width of the iteration value buffer

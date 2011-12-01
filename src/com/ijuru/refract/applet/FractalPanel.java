@@ -24,7 +24,7 @@ import java.awt.event.*;
 import java.awt.image.*;
 import javax.swing.*;
 
-import com.ijuru.refract.FractalGenerator;
+import com.ijuru.refract.Renderer;
 import com.ijuru.refract.Function;
 import com.ijuru.refract.Palette;
 
@@ -55,7 +55,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	private int width, height;									// The width and height of the fractal image in pixels
 	private int setColor = 0x000000;						// Color of pixels within the set (default black)
 	
-	private FractalGenerator generator = new FractalGenerator();
+	private Renderer renderer = new Renderer();
 	
 	private long startTime = 0;
 	private long frameMillis = 0;								// Time taken to render last frame in millis
@@ -84,7 +84,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	{	
 		this.palette = palette;
 		
-		generator.setFunction(func);		
+		renderer.setFunction(func);		
 	
 		// Set flag for buffer reallocation on resize event
 		addComponentListener(new ComponentAdapter() {
@@ -101,8 +101,8 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 				
 				oldMouseX = e.getX();
 				oldMouseY = e.getY();
-				oldXPos = generator.getXPos();
-				oldYPos = generator.getYPos();
+				oldXPos = renderer.getXPos();
+				oldYPos = renderer.getYPos();
 				
 				requestFocus();		
 			}
@@ -116,9 +116,9 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 		addMouseMotionListener(new MouseMotionAdapter() {
 			public void mouseDragged(MouseEvent e)
 			{
-				double x = oldXPos + (oldMouseX - e.getX()) / generator.getZoom();
-				double y = oldYPos - (oldMouseY - e.getY()) / generator.getZoom();
-				setCoords(generator.getZoom(), x, y);			
+				double x = oldXPos + (oldMouseX - e.getX()) / renderer.getZoom();
+				double y = oldYPos - (oldMouseY - e.getY()) / renderer.getZoom();
+				setCoords(renderer.getZoom(), x, y);			
 			}
 		});				
 		
@@ -140,7 +140,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 		height = getHeight();
 		buffer = null;
 		
-		generator.initialize(width, height);
+		renderer.initialize(width, height);
 					
 		buffer = new int[width * height];
 		memImage = new MemoryImageSource(width, height, Palette.MODEL, buffer, 0, width);
@@ -172,7 +172,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 		if (startTime == 0)
 			startTime = System.currentTimeMillis();
 					
-		generator.update();
+		renderer.update();
 		
 		if (palAutoScale) {
 			calcAutoScalePalette();
@@ -190,8 +190,8 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 		int paloff_safe = palOffset % curPalSize + curPalSize;
 		
 		// Write pixel colors to buffer
-		int[] itersbuf = generator.getIterBuffer();
-		int maxIters = generator.getMaxIters();			
+		int[] itersbuf = renderer.getIterBuffer();
+		int maxIters = renderer.getMaxIters();			
 		for (int index = 0; index < (width * height); ++index) {
 			int iters = itersbuf[index];
 			buffer[index] = (iters == maxIters) ? setColor : colors[(iters + paloff_safe) % curPalSize];
@@ -239,17 +239,17 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	 */	
 	public void setCoords(double zoom, double x, double y)
 	{
-		generator.setZoom(zoom);		
-		generator.setCoords(x, y);
+		renderer.setZoom(zoom);		
+		renderer.setCoords(x, y);
 		
 		// Notify listeners that coords have changed
-		for (int l = 0; l < listeners.size(); l++)
-			((FractalPanelListener)listeners.get(l)).coordsChanged(this);							
+		for (FractalPanelListener listener : listeners)
+			listener.coordsChanged(this);							
 	}		
 	
-	public FractalGenerator getGenerator()
+	public Renderer getRenderer()
 	{
-		return generator;		
+		return renderer;		
 	}
 	
 	public long getFrameMillis()
@@ -273,9 +273,9 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	 */
 	public void keyPressed(KeyEvent e)
 	{
-		double zoom = generator.getZoom();
-		double xpos = generator.getXPos();
-		double ypos = generator.getYPos();				
+		double zoom = renderer.getZoom();
+		double xpos = renderer.getXPos();
+		double ypos = renderer.getYPos();				
 		
 		switch (e.getKeyCode()) {
 			case KeyEvent.VK_MINUS:
@@ -362,7 +362,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	 */	
 	private void calcAutoScalePalette()
 	{
-		int[] histo = generator.calcIterHistogram();
+		int[] histo = renderer.calcIterHistogram();
 				
 		// Find minimum iteration value for palette start
 		int minIVal = 0;
@@ -396,7 +396,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	public void mouseWheelMoved(MouseWheelEvent e)
 	{
 		double factor = (e.getUnitsToScroll() > 0) ? 1.1 : (1 / 1.1);
-		setCoords(generator.getZoom() * factor, generator.getXPos(), generator.getYPos());
+		setCoords(renderer.getZoom() * factor, renderer.getXPos(), renderer.getYPos());
 	}
 	
 	public synchronized void addFractalPanelListener(FractalPanelListener listener)

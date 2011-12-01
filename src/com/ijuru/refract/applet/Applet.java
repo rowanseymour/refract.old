@@ -28,7 +28,7 @@ import java.security.*;
 import java.io.*;
 import javax.imageio.*;
 
-import com.ijuru.refract.FractalGenerator;
+import com.ijuru.refract.Renderer;
 import com.ijuru.refract.Function;
 import com.ijuru.refract.Palette;
 import com.ijuru.refract.Utils;
@@ -364,7 +364,7 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 				manView.render();
 				julView.render();
 				
-				status.setInfo(selView.getGenerator().getMaxIters() + " iters in " + selView.getFrameMillis() + "ms");				
+				status.setInfo(selView.getRenderer().getMaxIters() + " iters in " + selView.getFrameMillis() + "ms");				
 				
 				// Now the thread checks to see if it should suspend itself
 				if (threadSuspended) {
@@ -457,18 +457,18 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 				stop();
 		}
 		else if (src == itemFuncZ2) {
-			manView.getGenerator().setFunction(Function.MANDELBROT);
-			julView.getGenerator().setFunction(Function.JULIA);
+			manView.getRenderer().setFunction(Function.MANDELBROT);
+			julView.getRenderer().setFunction(Function.JULIA);
 			setCoords(DEF_ZOOM, 0, 0);					
 		}
 		else if (src == itemFuncZ3) {
-			manView.getGenerator().setFunction(Function.MANDELBROT_3);
-			julView.getGenerator().setFunction(Function.JULIA_3);
+			manView.getRenderer().setFunction(Function.MANDELBROT_3);
+			julView.getRenderer().setFunction(Function.JULIA_3);
 			setCoords(DEF_ZOOM, 0, 0);					
 		}
 		else if (src == itemFuncZ4) {
-			manView.getGenerator().setFunction(Function.MANDELBROT_4);
-			julView.getGenerator().setFunction(Function.JULIA_4);
+			manView.getRenderer().setFunction(Function.MANDELBROT_4);
+			julView.getRenderer().setFunction(Function.JULIA_4);
 			setCoords(DEF_ZOOM, 0, 0);			
 		}					
 		else if (src == itemResetCoords) {
@@ -477,7 +477,7 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 		else if (src == itemCopyCoords) {
 			try {
 				// Copy coords from the mandelbrot view
-				FractalGenerator fg = manView.getGenerator();
+				Renderer fg = manView.getRenderer();
 				String params = fg.getZoom() + "\n" + fg.getXPos() + "\n" + fg.getYPos();
 				Clipboard board = getToolkit().getSystemClipboard();
 				board.setContents(new StringSelection(params), null);
@@ -520,28 +520,28 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 			start();		
 		}								
 		else if (src == exampleItems[0]) {
-			manView.getGenerator().setFunction(Function.MANDELBROT);
-			julView.getGenerator().setFunction(Function.JULIA);
+			manView.getRenderer().setFunction(Function.MANDELBROT);
+			julView.getRenderer().setFunction(Function.JULIA);
 			setCoords(409680.0429170958, -0.7711496426797392, 0.11529120855296526);
 		}
 		else if (src == exampleItems[1]) {
-			manView.getGenerator().setFunction(Function.MANDELBROT);
-			julView.getGenerator().setFunction(Function.JULIA);
+			manView.getRenderer().setFunction(Function.MANDELBROT);
+			julView.getRenderer().setFunction(Function.JULIA);
 			setCoords(1.3312128175744123E10, -0.5644303291616849, -0.6436946946061423);
 		}
 		else if (src == exampleItems[2]) {
-			manView.getGenerator().setFunction(Function.MANDELBROT);
-			julView.getGenerator().setFunction(Function.JULIA);
+			manView.getRenderer().setFunction(Function.MANDELBROT);
+			julView.getRenderer().setFunction(Function.JULIA);
 			setCoords(169289.27393268436, -0.1906007280355749, 0.6698834550467907);
 		}
 		else if (src == exampleItems[3]) {
-			manView.getGenerator().setFunction(Function.MANDELBROT);
-			julView.getGenerator().setFunction(Function.JULIA);
+			manView.getRenderer().setFunction(Function.MANDELBROT);
+			julView.getRenderer().setFunction(Function.JULIA);
 			setCoords(2.4789605647075914E13, 0.33602211703385265, 0.05478487479148234);
 		}
 		else if (src == exampleItems[4]) {
-			manView.getGenerator().setFunction(Function.MANDELBROT);
-			julView.getGenerator().setFunction(Function.JULIA);
+			manView.getRenderer().setFunction(Function.MANDELBROT);
+			julView.getRenderer().setFunction(Function.JULIA);
 			setCoords(6498792.609450064, -1.1200968970340854, 0.219436264812675);
 		}
 		else if (src == itemControls) {
@@ -572,8 +572,8 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 	 */
 	public void coordsChanged(FractalPanel panel)
 	{
-		FractalGenerator fg = panel.getGenerator();
+		Renderer fg = panel.getRenderer();
 		status.setCoords(fg.getZoom(), fg.getXPos(), fg.getYPos());
-		julView.getGenerator().setJuliaCoords(fg.getXPos(), fg.getYPos());
+		julView.getRenderer().setJuliaCoords(fg.getXPos(), fg.getYPos());
 	}	
 }
