@@ -1,22 +1,26 @@
-// Refract is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation; either version 2 of the License, or
-// (at your option) any later version.
-// 
-// Refract is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-// 
-// You should have received a copy of the GNU General Public License
-// along with Foobar; if not, write to the Free Software
-// Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-//
+/**
+ * Copyright 2011 Rowan Seymour
+ * 
+ * This file is part of Refract.
+ *
+ * Refract is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Refract is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Refract. If not, see <http://www.gnu.org/licenses/>.
+ */
 
 package com.ijuru.refract;
 
 /**
- * Class for generating mandelbrot or julia sets
+ * Class for generating Mandelbrot or Julia sets
  */
 public class FractalGenerator
 {
@@ -33,37 +37,39 @@ public class FractalGenerator
 	/**
 	 * Iteration parameter defaults
 	 */
-	private static final int DEF_MINITERS = 25;				// The default min/initial iterations value
-	private static final int DEF_INCITERS = 10;				// The default iterations increment value	
+	private static final int DEF_MINITERS = 25;	// The default min/initial iterations value
+	private static final int DEF_INCITERS = 10;	// The default iterations increment value	
 	
 	/**
 	 * Iteration parameters
 	 */	
-	private int minIters = DEF_MINITERS;							// Initial number of iterations to perform	
-	private int maxIters = minIters;									// Max number of iterations to perform
-	private int incIters = DEF_INCITERS;							// Number of iterations performd per frame
+	private int minIters = DEF_MINITERS; // Initial number of iterations to perform	
+	private int maxIters = minIters; // Max number of iterations to perform
+	private int incIters = DEF_INCITERS; // Number of iterations performd per frame
 	
 	/**
 	 * Fractal parameters
 	 */	
 	private int func = MANDELBROT;	
 	private double juliaX, juliaY;	
-	private double zoom = 200;												// Zoom factor for pixel space -> complex space mapping
-	private double xpos = 0;													// X(j) offset in complex space
-	private double ypos = 0;													// Y(i) offset in complex space	
+	private double zoom = 200; // Zoom factor for pixel space -> complex space mapping
+	private double xpos = 0; // X(j) offset in complex space
+	private double ypos = 0; // Y(i) offset in complex space	
 	
 	/**
 	 * Cache stuff
 	 */
-	private double[] cacheX = null;										// Cache of Real(Z) values
-	private double[] cacheY = null;										// Cache of Imag(Z) values
-	private boolean cacheValid = false;								// True if cached values can be used
+	private double[] cacheX = null; // Cache of Real(Z) values
+	private double[] cacheY = null; // Cache of Imag(Z) values
+	private boolean cacheValid = false; // True if cached values can be used
 	
-	private int[] iters = null;												// Iteration values
-	private int width, height;
+	private int[] iters = null; // Iteration values
+	private int width, height; // Dimensions
 	
 	/**
 	 * Initializes this generator to the specified dimensions
+	 * @param width the width
+	 * @param height the height
 	 */	
 	public void initialize(int width, int height)
 	{
@@ -73,8 +79,8 @@ public class FractalGenerator
 		cacheX = null;
 		cacheY = null;		
 		iters = null;
-		// Since we potentially deleted a lot of memory
-		System.gc();
+	
+		System.gc(); // Since we potentially released a lot of memory
 			
 		// Allocate buffers
 		cacheX = new double[width * height];
@@ -358,6 +364,7 @@ public class FractalGenerator
 	
 	/**
 	 * Gets the width of the iteration value buffer
+	 * @return the width
 	 */	
 	public int getWidth()
 	{
@@ -366,6 +373,7 @@ public class FractalGenerator
 	
 	/**
 	 * Gets the height of the iteration value buffer
+	 * @return the height
 	 */	
 	public int getHeight()
 	{
