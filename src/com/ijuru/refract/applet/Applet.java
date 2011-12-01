@@ -29,6 +29,7 @@ import java.io.*;
 import javax.imageio.*;
 
 import com.ijuru.refract.FractalGenerator;
+import com.ijuru.refract.Function;
 import com.ijuru.refract.Palette;
 import com.ijuru.refract.Utils;
 
@@ -83,10 +84,10 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 		initMenu();	
 		
 		// Initialize the 2 fractal views
-		manView = new FractalPanel(FractalGenerator.MANDELBROT, new Palette(Palette.SUNSET));
+		manView = new FractalPanel(Function.MANDELBROT, new Palette(Palette.SUNSET));
 		manView.setCoords(DEF_ZOOM, 0, 0);	
 		manView.addFractalPanelListener(this);
-		julView = new FractalPanel(FractalGenerator.JULIA, new Palette(Palette.HUBBLE));	
+		julView = new FractalPanel(Function.JULIA, new Palette(Palette.HUBBLE));	
 		julView.setCoords(DEF_ZOOM, 0, 0);
 		
 		// Start with the mandelbrot view selected
@@ -456,18 +457,18 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 				stop();
 		}
 		else if (src == itemFuncZ2) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA);
+			manView.getGenerator().setFunction(Function.MANDELBROT);
+			julView.getGenerator().setFunction(Function.JULIA);
 			setCoords(DEF_ZOOM, 0, 0);					
 		}
 		else if (src == itemFuncZ3) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT_3);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA_3);
+			manView.getGenerator().setFunction(Function.MANDELBROT_3);
+			julView.getGenerator().setFunction(Function.JULIA_3);
 			setCoords(DEF_ZOOM, 0, 0);					
 		}
 		else if (src == itemFuncZ4) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT_4);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA_4);
+			manView.getGenerator().setFunction(Function.MANDELBROT_4);
+			julView.getGenerator().setFunction(Function.JULIA_4);
 			setCoords(DEF_ZOOM, 0, 0);			
 		}					
 		else if (src == itemResetCoords) {
@@ -519,28 +520,28 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 			start();		
 		}								
 		else if (src == exampleItems[0]) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA);
+			manView.getGenerator().setFunction(Function.MANDELBROT);
+			julView.getGenerator().setFunction(Function.JULIA);
 			setCoords(409680.0429170958, -0.7711496426797392, 0.11529120855296526);
 		}
 		else if (src == exampleItems[1]) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA);
+			manView.getGenerator().setFunction(Function.MANDELBROT);
+			julView.getGenerator().setFunction(Function.JULIA);
 			setCoords(1.3312128175744123E10, -0.5644303291616849, -0.6436946946061423);
 		}
 		else if (src == exampleItems[2]) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA);
+			manView.getGenerator().setFunction(Function.MANDELBROT);
+			julView.getGenerator().setFunction(Function.JULIA);
 			setCoords(169289.27393268436, -0.1906007280355749, 0.6698834550467907);
 		}
 		else if (src == exampleItems[3]) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA);
+			manView.getGenerator().setFunction(Function.MANDELBROT);
+			julView.getGenerator().setFunction(Function.JULIA);
 			setCoords(2.4789605647075914E13, 0.33602211703385265, 0.05478487479148234);
 		}
 		else if (src == exampleItems[4]) {
-			manView.getGenerator().setFunction(FractalGenerator.MANDELBROT);
-			julView.getGenerator().setFunction(FractalGenerator.JULIA);
+			manView.getGenerator().setFunction(Function.MANDELBROT);
+			julView.getGenerator().setFunction(Function.JULIA);
 			setCoords(6498792.609450064, -1.1200968970340854, 0.219436264812675);
 		}
 		else if (src == itemControls) {

@@ -25,6 +25,7 @@ import java.awt.image.*;
 import javax.swing.*;
 
 import com.ijuru.refract.FractalGenerator;
+import com.ijuru.refract.Function;
 import com.ijuru.refract.Palette;
 
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	/**
 	 * Constructor
 	 */	
-	public FractalPanel(int func, Palette palette)
+	public FractalPanel(Function func, Palette palette)
 	{	
 		this.palette = palette;
 		

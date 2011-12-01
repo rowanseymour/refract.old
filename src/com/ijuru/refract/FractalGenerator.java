@@ -23,17 +23,7 @@ package com.ijuru.refract;
  * Class for generating Mandelbrot or Julia sets
  */
 public class FractalGenerator
-{
-	/**
-	 * Function type constants
-	 */
-	public static final int MANDELBROT = 0;
-	public static final int MANDELBROT_3 = 1;
-	public static final int MANDELBROT_4 = 2;		
-	public static final int JULIA = 3;
-	public static final int JULIA_3 = 4;
-	public static final int JULIA_4 = 5;	
-	
+{	
 	/**
 	 * Iteration parameter defaults
 	 */
@@ -50,7 +40,7 @@ public class FractalGenerator
 	/**
 	 * Fractal parameters
 	 */	
-	private int func = MANDELBROT;	
+	private Function func = Function.MANDELBROT;	
 	private double juliaX, juliaY;	
 	private double zoom = 200; // Zoom factor for pixel space -> complex space mapping
 	private double xpos = 0; // X(j) offset in complex space
@@ -298,60 +288,6 @@ public class FractalGenerator
 		}
 	}
 	
-	/**
-	 * Calculates the z = (1 - z)^2 + c mandelbrot/julia sets
-	 */
-	/*private void iterate1MinZ2(boolean useCache, boolean julia, double zoom, double re, double im, double jr, double ji)
-	{
-		int halfCX = width / 2;
-		int halfCY = height / 2;
-				
-		for (int y = 0, index = 0; y < height; ++y) {
-			for (int x = 0; x < width; ++x, ++index) {
-				double zr, zi, cr, ci;
-				int niters;
-				
-				// Convert from pixel space to complex space
-				cr = (x - halfCX) / zoom + re;
-				ci = (y - halfCY) / zoom - im;				
-				
-				if (useCache) {
-					// Load X, Y and ITERS from cache if refinement
-					zr = cacheX[index];
-					zi = cacheY[index];		
-					niters = iters[index];
-				}
-				else {
-					zr = cr;
-					zi = ci;
-					niters = 0;
-				}
-				if (julia) {
-					cr = jr;
-					ci = ji;
-				}	
-				
-				// Precalculate squares
-				double zr2 = zr * zr;
-				double zi2 = zi * zi;
-				
-				//
-				while ((zr2 + zi2 < 4) && niters < maxIters) {
-					zi = 2 * (1 - zr) * zi + ci;
-					zr = (1 - zr) * (1 - zr) - zi2 + cr;
-					zr2 = zr * zr;
-					zi2 = zi * zi;
-					++niters;
-				}
-				
-				// Store X, Y and ITERS in cache for next frame which maybe a refinement
-				cacheX[index] = zr;
-				cacheY[index] = zi;		
-				iters[index] = niters;
-			}
-		}
-	}*/
-	
 	public int[] calcIterHistogram()
 	{
 		int[] histo = new int[maxIters + 1];
@@ -399,7 +335,7 @@ public class FractalGenerator
 	/**
 	 * Gets the iteration function
 	 */		
-	public int getFunction()
+	public Function getFunction()
 	{
 		return func;
 	}
@@ -407,7 +343,7 @@ public class FractalGenerator
 	/**
 	 * Sets the iteration function
 	 */	
-	public void setFunction(int func)
+	public void setFunction(Function func)
 	{
 		cacheValid = false;
 		this.func = func;
