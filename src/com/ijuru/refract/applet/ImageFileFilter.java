@@ -19,10 +19,12 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
  
-package com.ijuru.refract;
+package com.ijuru.refract.applet;
 
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
+
+import com.ijuru.refract.Utils;
 
 /**
  * Simple file filter to allow only JPEG and PNG files

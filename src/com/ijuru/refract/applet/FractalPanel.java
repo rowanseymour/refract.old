@@ -19,12 +19,15 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-package com.ijuru.refract;
+package com.ijuru.refract.applet;
  
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import javax.swing.*;
+
+import com.ijuru.refract.FractalGenerator;
+import com.ijuru.refract.Palette;
 
 import java.util.ArrayList;
 import java.util.List;
