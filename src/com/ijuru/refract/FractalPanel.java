@@ -19,13 +19,15 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-package refract;
+package com.ijuru.refract;
  
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import javax.swing.*;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Listener class for changes to a FractalPanel
@@ -43,6 +45,8 @@ interface FractalPanelListener
  */
 public class FractalPanel extends JPanel implements KeyListener, MouseWheelListener
 {		
+	private static final long serialVersionUID = 1L;
+	
 	private int[] buffer = null;								// Buffer of RGB pixels which holds image		
 	private MemoryImageSource memImage = null;	// 
 	private Image image = null;
@@ -69,7 +73,7 @@ public class FractalPanel extends JPanel implements KeyListener, MouseWheelListe
 	private double oldMouseX, oldMouseY;				// "
 	private boolean isBeingDragged = false;			// True when image is being dragged with the mouse
 	
-	private Vector listeners = new Vector();
+	private List<FractalPanelListener> listeners = new ArrayList<FractalPanelListener>();
 	
 	/**
 	 * Constructor

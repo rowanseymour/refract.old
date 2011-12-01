@@ -19,7 +19,7 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
  
-package refract;
+package com.ijuru.refract;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -31,6 +31,8 @@ import javax.swing.border.LineBorder;
  */
 public class StatusPanel extends JPanel implements ActionListener
 {
+	private static final long serialVersionUID = 1L;
+
 	private Applet parent = null;
 	
 	private JLabel selText = new JLabel("M");	

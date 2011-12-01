@@ -13,13 +13,7 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
 
-package refract;
- 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import javax.swing.*;
-import java.util.*;
+package com.ijuru.refract;
 
 /**
  * Class for generating mandelbrot or julia sets
@@ -94,8 +88,7 @@ public class FractalGenerator
 	 */
 	public void update()
 	{	
-		// Store the parameters as they may be changed in a separate thread during this render
-		int thisFunc = func;		
+		// Store the parameters as they may be changed in a separate thread during this render	
 		double thisZoom = zoom;	
 		double thisRe = xpos;
 		double thisIm = ypos;

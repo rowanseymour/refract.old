@@ -19,7 +19,7 @@
 // Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //
  
-package refract;
+package com.ijuru.refract;
  
 import java.awt.*;
 import java.awt.event.*;
@@ -28,7 +28,6 @@ import java.awt.datatransfer.*;
 import javax.swing.*;
 import java.security.*;
 import java.io.*;
-import java.util.*;
 import javax.imageio.*;
 
 /**
@@ -36,12 +35,14 @@ import javax.imageio.*;
  */
 public class Applet extends JApplet implements Runnable, ActionListener, FractalPanelListener
 {
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Constants
 	 */		
-	private final String appTitle = "Refract";							// Application title
-	private final String appVersion = "1.03 BETA";					// Application version		
-	private final int DEF_ZOOM = 100;												// The default zoom value
+	private final String appTitle = "Refract";									// Application title
+	private final String appVersion = "1.03 BETA";								// Application version		
+	private final int DEF_ZOOM = 100;											// The default zoom value
 	
 	/**
 	 * Components
@@ -62,7 +63,7 @@ public class Applet extends JApplet implements Runnable, ActionListener, Fractal
 	/**
 	 * Menu items
 	 */	
-	private JMenuItem itemSaveM, itemSaveJ, itemPerformance, itemDetach, itemPause;
+	private JMenuItem itemSaveM, itemSaveJ, itemDetach, itemPause;
 	private JMenuItem itemCopyCoords, itemResetCoords;
 	private JRadioButtonMenuItem itemFuncZ2, itemFuncZ3, itemFuncZ4;
 	private JMenuItem itemPalReverse, itemPalAutoScale, itemPalInvert, itemPalSetColor;		
